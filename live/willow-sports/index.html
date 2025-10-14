@@ -11,9 +11,15 @@
     <meta name="referrer" content="no-referrer">
     <link rel="icon" type="image/png" href="https://www.pngplay.com/wp-content/uploads/7/Cricket-Ball-Transparent-PNG.png" sizes="128x128"
         style="border-radius: 5px;">
-    <title>Watch Willow Sports Live Cricket Streaming Online in HD | Stmify</title>
-    <meta name="description" content="Watch Willow Sports live cricket streaming online free in HD on Stmify. Stream live cricket matches, highlights, and sports shows anytime.">
-   
+	<title>Watch Willow Sports Live Streaming Online Free in HD | Willow Cricket on Stmify</title>
+	<meta name="description" content="Watch Willow Sports Live Streaming Free in HD on Stmify. Enjoy live cricket matches, international series, and exclusive Willow Sports broadcasts anytime, anywhere.">
+	<meta name="keywords" content="Willow Sports Live, Willow Cricket HD, Watch Willow Sports Online, Live Cricket Streaming, Cricket HD, Willow Sports Streaming, Stmify Willow">
+	<meta property="og:title" content="Willow Sports Live Streaming | Watch Cricket in HD on Stmify">
+	<meta property="og:description" content="Watch Willow Sports live HD cricket streaming, matches, and highlights free on Stmify.">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://stmify.site/live/willow-sports/">
+	<meta property="og:image" content="https://stmify.site/assets/img/webp/willow-sports.webp">
+
   <style>
     html,
     body {
@@ -689,7 +695,7 @@
 <body>
   <div id="container">
     <header>
-      <img alt="Willow" id="top-image" loading="eager" src="logo.webp" />
+      <img alt="Watch Willow Sports Live Streaming on Stmify" id="top-image" loading="eager" src="logo.webp" />
     </header>
 
     <center style="
@@ -708,7 +714,79 @@
             src="https://stmify.site/player.html?id=Willow_Sports" scrolling="no"
             allowfullscreen></iframe>
       	</div>
-  </center>
+	    <!-- Playlist -->
+	    <!-- <div id="playlist">
+	      <div class="playlist-item active" id="video1" onclick="changeServer(1)">
+	        <div class="playlist-info">
+	          <i class="fa fa-play-circle" style="color: yellowgreen; font-size: 22px; margin-right: 10px"></i>
+	          Server 1 - 50 FPS
+	        </div>
+	        <div class="playlist-icons">
+	          <span class="language" style="color: blue">English</span>
+	          <span class="HD">HD</span>
+	          <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" alt="India Flag" class="flag-icon" />
+	        </div>
+	      </div>
+	
+	      <div class="playlist-item" id="video2" onclick="changeServer(2)">
+	        <div class="playlist-info">
+	          <i class="fa fa-play-circle" style="color: yellowgreen; font-size: 22px; margin-right: 10px"></i>
+	          Server 2 - 50 FPS
+	        </div>
+	        <div class="playlist-icons">
+	          <span class="language" style="color: blue">English</span>
+	          <span class="HD">HD</span>
+	          <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" alt="USA Flag" class="flag-icon" />
+	        </div>
+	      </div>
+	    </div> -->
+	  </center>
+	
+		<script>
+		function changeServer(serverNumber) {
+		  // accept both "1" and 1
+		  serverNumber = parseInt(serverNumber, 10);
+	
+		  // find the current iframe by id
+		  const iframe = document.getElementById("player-container");
+		  // container that holds the iframe (your .iframe-wrapper)
+		  const container = document.querySelector('.iframe-wrapper') || iframe.parentElement;
+	
+		  // Remove active class from all playlist items
+		  document.querySelectorAll(".playlist-item").forEach(item => item.classList.remove("active"));
+	
+		  // 🧹 Remove the current iframe from the DOM
+		  if (iframe && container) {
+			container.removeChild(iframe);
+		  }
+	
+		  // create a fresh iframe
+		  const newIframe = document.createElement('iframe');
+		  newIframe.id = 'player-container';
+		  newIframe.scrolling = 'no';
+		  newIframe.allowFullscreen = true;
+		  newIframe.style.width = '100%';
+		  newIframe.style.height = '100%';
+		  newIframe.frameBorder = '0';
+	
+		  // set source and active class
+		  if (serverNumber === 1) {
+			newIframe.src = "https://stmify.site/player.html?id=Willow";
+			const v = document.getElementById("video1"); if (v) v.classList.add("active");
+		  } else if (serverNumber === 2) {
+			newIframe.src = "https://stmify.site/play.html?id=willowusa";
+			const v = document.getElementById("video2"); if (v) v.classList.add("active");
+		  } else {
+			// fallback
+			newIframe.src = "https://stmify.site/player.html?id=Willow";
+			const v = document.getElementById("video1"); if (v) v.classList.add("active");
+		  }
+	
+		  // append the new iframe into the same container
+		  if (container) container.appendChild(newIframe);
+		}
+		</script>
+	  
         <h3>Disclaimer</h3>
         <ul>
             <li>

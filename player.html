@@ -1,1 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CRICHD | Player - By X Fire Flix</title>
+<link rel="shortcut icon" href="https://i.postimg.cc/sxkGqfMT/x-fire-flix.png">
+<script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #000;
+}
+#player {
+  width: 100%;
+  height: 100%;
+  background: #000;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+  font-size: 1.2rem;
+  z-index: 1000;
+}
+.stream-list {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 2000;
+}
+.stream-list button {
+  margin: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.active-stream {
+  background-color: #ff0000;
+  color: #fff;
+}
+</style>
+</head>
+<body>
+
+<div id="player"></div>
+<div class="stream-list" id="stream-list"></div>
+<div class="loading" id="loading">Loading...</div>
+
+<script>
+// JSON with streams
+const streams = {
+  "Willow_Sports": {
+    "url": "https://otte.live.cf.ww.aiv-cdn.net/iad-nitro/live/clients/dash/enc/f60kqesunw/out/v1/a435ed7a00f947deb4369b46d8f2fb70/cenc.mpd",
+    "k1": "1779c27b9d077a3ba0c9cc1bb9a94b9f",
+    "k2": "cc5cf3b7928fb9e0a1ee6a8b566f0a8e"
+  },
+  "Willow": {
+    "url": "https://fl7.moveonjoy.com/WILLOW_CRICKET/manifest.m3u8" 
+  },
+  "TNT_Sports_PT_BR": {
+    "url": "https://bra.06134346.xyz/proxy?url=https://0012-aws.vrioott.com/v1/78b66fd5e8204e048e31ad1c6eebbb8e/manifest.mpd?hdnts=exp%3D1751293344%7Eacl%3D%2F*%7Eid%3D996e0602-0475-53fa-b17a-bd3adaab1ce5%7Ehmac%3D08da58cba4e3a240d219b6c37db49fdfd51a183f5f583fb4f935e4713a626edd",
+    "clearkeys": {
+      "7c725bec30ce42b68cf6919403ba2376":"ce5ad511ef4efeacf533fbac6815dbe7",
+      "4d2f65c1e6573da2991edb00f427c2e0":"a8ab35b34424226759b2f697ee4e13a0"
+    }
+  }
+};
+
+// Global Clappr player instance
+let player;
+
+// Function to load a stream by key
+function loadVideoStream(key) {
+  const stream = streams[key];
+  if (!stream) return;
+
+  // Remove active class from previous buttons
+  document.querySelectorAll('.stream-list button').forEach(btn => btn.classList.remove('active-stream'));
+
+  // Add active class to current button
+  const btn = document.getElementById('btn-' + key);
+  if (btn) btn.classList.add('active-stream');
+
+  // Show loading
+  document.getElementById('loading').style.display = 'flex';
+
+  // Destroy previous player if exists
+  if (player) player.destroy();
+
+  // Clappr player config
+  const options = {
+    source: stream.url,
+    parentId: '#player',
+    width: '100%',
+    height: '100%',
+    autoPlay: true,
+    mute: false,
+    mediacontrol: { seekbar: "#00FF00" }
+  };
+
+  // Add clear keys if available
+  if (stream.clearkeys) {
+    options.playback = {
+      hlsjsConfig: {
+        xhrSetup: (xhr) => {
+          // Custom headers can go here
+        }
+      },
+      drm: {
+        clearkeys: stream.clearkeys
+      }
+    };
+  }
+
+  // Initialize player
+  player = new Clappr.Player(options);
+
+  // Hide loading when ready
+  player.listenTo(player, Clappr.Events.PLAYER_READY, function() {
+    document.getElementById('loading').style.display = 'none';
+  });
+}
+
+// Generate buttons for each stream
+const listDiv = document.getElementById('stream-list');
+Object.keys(streams).forEach(key => {
+  const btn = document.createElement('button');
+  btn.textContent = key;
+  btn.id = 'btn-' + key;
+  btn.onclick = () => loadVideoStream(key);
+  listDiv.appendChild(btn);
+});
+
+// Auto-load first stream
+window.addEventListener('load', function() {
+  const firstKey = Object.keys(streams)[0];
+  if (firstKey) loadVideoStream(firstKey);
+});
+</script>
+
+</body>
+</html>
 

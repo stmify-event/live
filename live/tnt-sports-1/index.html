@@ -715,7 +715,7 @@
       allowfullscreen></iframe>
 	</div>
     <!-- Playlist -->
-    <!-- <div id="playlist">
+    <div id="playlist">
       <div class="playlist-item active" id="video1" onclick="changeServer(1)">
         <div class="playlist-info">
           <i class="fa fa-play-circle" style="color: yellowgreen; font-size: 22px; margin-right: 10px"></i>
@@ -724,7 +724,7 @@
         <div class="playlist-icons">
           <span class="language" style="color: blue">English</span>
           <span class="HD">HD</span>
-          <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" alt="India Flag" class="flag-icon" />
+          <img src="https://stmify.com/wp-content/themes/stmify/assets/img/flags/gb.png" alt="India Flag" class="flag-icon" />
         </div>
       </div>
 
@@ -736,10 +736,10 @@
         <div class="playlist-icons">
           <span class="language" style="color: blue">English</span>
           <span class="HD">HD</span>
-          <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" alt="USA Flag" class="flag-icon" />
+          <img src="https://stmify.com/wp-content/themes/stmify/assets/img/flags/gb.png" alt="USA Flag" class="flag-icon" />
         </div>
       </div>
-    </div> -->
+    </div>
   </center>
 
 	<script>
@@ -771,14 +771,14 @@
 
 	  // set source and active class
 	  if (serverNumber === 1) {
-		newIframe.src = "https://stmify.site/player.html?id=Willow";
+		newIframe.src = "https://stmify.site/play.html?id=bbtsp1";
 		const v = document.getElementById("video1"); if (v) v.classList.add("active");
 	  } else if (serverNumber === 2) {
-		newIframe.src = "https://stmify.site/play.html?id=willowusa";
+		newIframe.src = "https://stmify.site/player.html?id=TNT_Sports_1";
 		const v = document.getElementById("video2"); if (v) v.classList.add("active");
 	  } else {
 		// fallback
-		newIframe.src = "https://stmify.site/player.html?id=Willow";
+		newIframe.src = "https://stmify.site/play.html?id=bbtsp1";
 		const v = document.getElementById("video1"); if (v) v.classList.add("active");
 	  }
 

@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Player - By Stmify</title>
-<link rel="shortcut icon" href="https://cdn.stmify.com/wp-content/themes/cdnstmify/img/cdnStmify-icon.png">
+<title>CRICHD | Player - By X Fire Flix</title>
+<link rel="shortcut icon" href="https://i.postimg.cc/sxkGqfMT/x-fire-flix.png">
 <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
 <style>
 html, body {
@@ -36,31 +36,11 @@ html, body {
   font-size: 1.2rem;
   z-index: 1000;
 }
-.stream-list {
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  z-index: 2000;
-}
-.stream-list button {
-  margin: 5px;
-  padding: 5px 10px;
-  cursor: pointer;
-  background-color: #222;
-  color: #fff;
-  border: none;
-  border-radius: 3px;
-}
-.active-stream {
-  background-color: #ff0000;
-  color: #fff;
-}
 </style>
 </head>
 <body>
 
 <div id="player"></div>
-<div class="stream-list" id="stream-list"></div>
 <div class="loading" id="loading">Loading...</div>
 
 <script>
@@ -86,17 +66,22 @@ const streams = {
 // Global Clappr player instance
 let player;
 
-// Function to load a stream by key
+// Function to get URL parameter
+function getQueryParam(name) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(name);
+}
+
+// Determine which stream to load
+let streamId = getQueryParam('id');
+if (!streamId || !streams[streamId]) {
+  streamId = Object.keys(streams)[0]; // fallback to first stream
+}
+
+// Function to load the stream
 function loadVideoStream(key) {
   const stream = streams[key];
   if (!stream) return;
-
-  // Remove active class from previous buttons
-  document.querySelectorAll('.stream-list button').forEach(btn => btn.classList.remove('active-stream'));
-
-  // Add active class to current button
-  const btn = document.getElementById('btn-' + key);
-  if (btn) btn.classList.add('active-stream');
 
   // Show loading
   document.getElementById('loading').style.display = 'flex';
@@ -133,31 +118,9 @@ function loadVideoStream(key) {
   });
 }
 
-// Generate buttons for each stream
-const listDiv = document.getElementById('stream-list');
-Object.keys(streams).forEach(key => {
-  const btn = document.createElement('button');
-  btn.textContent = key;
-  btn.id = 'btn-' + key;
-  btn.onclick = () => loadVideoStream(key);
-  listDiv.appendChild(btn);
-});
-
-// Function to get URL parameter
-function getQueryParam(name) {
-  const urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get(name);
-}
-
-// Determine which stream to load from URL
-let streamId = getQueryParam('id'); // e.g., TNT_Sports_PT_BR
-if (!streamId || !streams[streamId]) {
-  streamId = Object.keys(streams)[0]; // fallback to first stream
-}
-
-// Auto-load the stream from URL
+// Auto-load stream on page load
 window.addEventListener('load', function() {
-  if (streamId) loadVideoStream(streamId);
+  loadVideoStream(streamId);
 });
 </script>
 

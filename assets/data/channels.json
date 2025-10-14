@@ -1,5 +1,29 @@
 [
   {
+    "name": "TNT Sports 1",
+    "country": "Global",
+    "url": "https://stmify.site/live/tnt-sports-1/",
+    "poster": "assets/img/webp/tnt-sports-1.webp"
+  },
+  {
+    "name": "TNT Sports 2",
+    "country": "Global",
+    "url": "https://stmify.site/live/tnt-sports-2/",
+    "poster": "assets/img/webp/tnt-sports-2.webp"
+  },
+  {
+    "name": "TNT Sports 3",
+    "country": "Global",
+    "url": "https://stmify.site/live/tnt-sports-3/",
+    "poster": "assets/img/webp/tnt-sports-3.webp"
+  },
+  {
+    "name": "TNT Sports 4",
+    "country": "Global",
+    "url": "https://stmify.site/live/tnt-sports-4/",
+    "poster": "assets/img/webp/tnt-sports-4.webp"
+  },
+  {
     "name": "Willow",
     "country": "Global",
     "url": "https://stmify.site/live/willow/",

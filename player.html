@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>CRICHD | Player - By Stmify</title>
-<link rel="shortcut icon" href="https://cdn.stmify.com/wp-content/themes/cdnstmify/img/cdnStmify-icon.png">
+<title>CRICHD | Player - By X Fire Flix</title>
+<link rel="shortcut icon" href="https://i.postimg.cc/sxkGqfMT/x-fire-flix.png">
 <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
 <style>
 html, body {
@@ -46,6 +46,10 @@ html, body {
   margin: 5px;
   padding: 5px 10px;
   cursor: pointer;
+  background-color: #222;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
 }
 .active-stream {
   background-color: #ff0000;
@@ -111,14 +115,9 @@ function loadVideoStream(key) {
     mediacontrol: { seekbar: "#00FF00" }
   };
 
-  // Add clear keys if available
+  // Add DRM clearkeys if available
   if (stream.clearkeys) {
     options.playback = {
-      hlsjsConfig: {
-        xhrSetup: (xhr) => {
-          // Custom headers can go here
-        }
-      },
       drm: {
         clearkeys: stream.clearkeys
       }
@@ -144,13 +143,23 @@ Object.keys(streams).forEach(key => {
   listDiv.appendChild(btn);
 });
 
-// Auto-load first stream
+// Function to get URL parameter
+function getQueryParam(name) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(name);
+}
+
+// Determine which stream to load from URL
+let streamId = getQueryParam('id'); // e.g., TNT_Sports_PT_BR
+if (!streamId || !streams[streamId]) {
+  streamId = Object.keys(streams)[0]; // fallback to first stream
+}
+
+// Auto-load the stream from URL
 window.addEventListener('load', function() {
-  const firstKey = Object.keys(streams)[0];
-  if (firstKey) loadVideoStream(firstKey);
+  if (streamId) loadVideoStream(streamId);
 });
 </script>
 
 </body>
 </html>
-

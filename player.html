@@ -98,7 +98,7 @@ if (streamInfo && streamInfo.url) {
   const playerOptions = {
     parentId: "#player",
     source: streamInfo.url,
-    plugins: [LevelSelector, ClapprPip.PipButton, ClapprPip.PipPlugin, DashShakaPlayback],
+    plugins: [AudioTrackSelector, LevelSelector, ClapprPip.PipButton, ClapprPip.PipPlugin, DashShakaPlayback],
     watermark: "",
     position: "top-left",
     exitFullscreenOnEnd: true,

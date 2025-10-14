@@ -9,7 +9,6 @@
 <!-- Clappr + Shaka + Plugins -->
 <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/clappr-level-selector@latest/dist/level-selector.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/clappr-audio-track-selector@latest/dist/audio-track-selector.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/clappr-pip@latest/dist/clappr-pip.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/clappr-dash-shaka-playback@latest/dist/clappr-dash-shaka-playback.min.js"></script>
 
@@ -98,7 +97,7 @@ if (streamInfo && streamInfo.url) {
   const playerOptions = {
     parentId: "#player",
     source: streamInfo.url,
-    plugins: [AudioTrackSelector, LevelSelector, ClapprPip.PipButton, ClapprPip.PipPlugin, DashShakaPlayback],
+    plugins: [LevelSelector, ClapprPip.PipButton, ClapprPip.PipPlugin, DashShakaPlayback],
     watermark: "",
     position: "top-left",
     exitFullscreenOnEnd: true,

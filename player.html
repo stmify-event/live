@@ -5,13 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>CRICHD | Player - By X Fire Flix</title>
 <link rel="shortcut icon" href="https://i.postimg.cc/sxkGqfMT/x-fire-flix.png">
+
+<!-- Clappr + Shaka + Plugins -->
 <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clappr-level-selector@latest/dist/level-selector.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clappr-audio-track-selector@latest/dist/audio-track-selector.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clappr-pip@latest/dist/clappr-pip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clappr-dash-shaka-playback@latest/dist/clappr-dash-shaka-playback.min.js"></script>
+
 <style>
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  background-color: #000;
+  background: #000;
 }
 #player {
   width: 100%;
@@ -44,7 +51,7 @@ html, body {
 <div class="loading" id="loading">Loading...</div>
 
 <script>
-// JSON with streams
+// Streams JSON
 const streams = {
   "Willow_Sports": {
     "url": "https://otte.live.cf.ww.aiv-cdn.net/iad-nitro/live/clients/dash/enc/f60kqesunw/out/v1/a435ed7a00f947deb4369b46d8f2fb70/cenc.mpd",
@@ -63,10 +70,7 @@ const streams = {
   }
 };
 
-// Global Clappr player instance
-let player;
-
-// Function to get URL parameter
+// Function to get URL param
 function getQueryParam(name) {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get(name);
@@ -78,50 +82,43 @@ if (!streamId || !streams[streamId]) {
   streamId = Object.keys(streams)[0]; // fallback to first stream
 }
 
-// Function to load the stream
-function loadVideoStream(key) {
-  const stream = streams[key];
-  if (!stream) return;
+const streamInfo = streams[streamId];
 
-  // Show loading
-  document.getElementById('loading').style.display = 'flex';
+// Initialize player
+if (streamInfo && streamInfo.url) {
+  let clearkeys = null;
 
-  // Destroy previous player if exists
-  if (player) player.destroy();
-
-  // Clappr player config
-  const options = {
-    source: stream.url,
-    parentId: '#player',
-    width: '100%',
-    height: '100%',
-    autoPlay: true,
-    mute: false,
-    mediacontrol: { seekbar: "#00FF00" }
-  };
-
-  // Add DRM clearkeys if available
-  if (stream.clearkeys) {
-    options.playback = {
-      drm: {
-        clearkeys: stream.clearkeys
-      }
-    };
+  if (streamInfo.clearkeys) {
+    clearkeys = streamInfo.clearkeys;
+  } else if (streamInfo.k1 && streamInfo.k2) {
+    clearkeys = {};
+    clearkeys[streamInfo.k1] = streamInfo.k2;
   }
 
-  // Initialize player
-  player = new Clappr.Player(options);
+  const playerOptions = {
+    parentId: "#player",
+    source: streamInfo.url,
+    plugins: [AudioTrackSelector, LevelSelector, ClapprPip.PipButton, ClapprPip.PipPlugin, DashShakaPlayback],
+    watermark: "",
+    position: "top-left",
+    exitFullscreenOnEnd: true,
+    autoPlay: true,
+    mute: false,
+    width: "100%",
+    height: "100%",
+    playback: { crossOrigin: "anonymous" }
+  };
 
-  // Hide loading when ready
+  if (clearkeys) {
+    playerOptions.shakaConfiguration = { drm: { clearKeys: clearkeys } };
+  }
+
+  const player = new Clappr.Player(playerOptions);
+
   player.listenTo(player, Clappr.Events.PLAYER_READY, function() {
     document.getElementById('loading').style.display = 'none';
   });
 }
-
-// Auto-load stream on page load
-window.addEventListener('load', function() {
-  loadVideoStream(streamId);
-});
 </script>
 
 </body>

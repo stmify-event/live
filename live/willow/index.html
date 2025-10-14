@@ -704,7 +704,7 @@
     <!-- Player -->
 	<div class="iframe-wrapper">
     <iframe id="player-container"
-      src="https://stmify.site/play.html?id=willowusa" scrolling="no"
+      src="https://stmify.site/player.html?id=Willow" scrolling="no"
       allowfullscreen></iframe>
 	</div>
     <!-- Playlist -->
@@ -717,7 +717,7 @@
         <div class="playlist-icons">
           <span class="language" style="color: blue">English</span>
           <span class="HD">HD</span>
-          <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" alt="India Flag" class="flag-icon" />
+          <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" alt="India Flag" class="flag-icon" />
         </div>
       </div>
 
@@ -764,14 +764,14 @@
 
 	  // set source and active class
 	  if (serverNumber === 1) {
-		newIframe.src = "https://stmify.site/play.html?id=willowusa";
+		newIframe.src = "https://stmify.site/player.html?id=Willow";
 		const v = document.getElementById("video1"); if (v) v.classList.add("active");
 	  } else if (serverNumber === 2) {
-		newIframe.src = "https://stmify.site/player.html?id=Willow";
+		newIframe.src = "https://stmify.site/play.html?id=willowusa";
 		const v = document.getElementById("video2"); if (v) v.classList.add("active");
 	  } else {
 		// fallback
-		newIframe.src = "https://stmify.site/play.html?id=willowusa";
+		newIframe.src = "https://stmify.site/player.html?id=Willow";
 		const v = document.getElementById("video1"); if (v) v.classList.add("active");
 	  }
 

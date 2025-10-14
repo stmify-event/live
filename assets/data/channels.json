@@ -1,1 +1,21 @@
+[
+  {
+    "name": "Willow",
+    "country": "Global",
+    "url": "https://stmify.site/live/willow/",
+    "poster": "assets/img/webp/willow.webp"
+  },
+  {
+    "name": "Willow 2",
+    "country": "Global",
+    "url": "https://stmify.site/live/willow-2/",
+    "poster": "assets/img/webp/willow-2.webp"
+  },
+  {
+    "name": "Willow Sports",
+    "country": "Global",
+    "url": "https://stmify.site/live/willow-sports/",
+    "poster": "assets/img/webp/willow-sports.webp"
+  }
+]
 

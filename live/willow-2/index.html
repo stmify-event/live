@@ -689,7 +689,7 @@
 <body>
   <div id="container">
     <header>
-      <img alt="Willow 2" id="top-image" loading="eager" src="logo.webp" />
+      <img alt="Watch Willow 2 Live Streaming on Stmify" id="top-image" loading="eager" src="logo.webp" />
     </header>
 
     <center style="
@@ -708,7 +708,78 @@
       src="https://stmify.site/play.html?id=willowextra" scrolling="no"
       allowfullscreen></iframe>
 	</div>
+	<!-- Playlist -->
+    <!-- <div id="playlist">
+      <div class="playlist-item active" id="video1" onclick="changeServer(1)">
+        <div class="playlist-info">
+          <i class="fa fa-play-circle" style="color: yellowgreen; font-size: 22px; margin-right: 10px"></i>
+          Server 1 - 50 FPS
+        </div>
+        <div class="playlist-icons">
+          <span class="language" style="color: blue">English</span>
+          <span class="HD">HD</span>
+          <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" alt="India Flag" class="flag-icon" />
+        </div>
+      </div>
+
+      <div class="playlist-item" id="video2" onclick="changeServer(2)">
+        <div class="playlist-info">
+          <i class="fa fa-play-circle" style="color: yellowgreen; font-size: 22px; margin-right: 10px"></i>
+          Server 2 - 50 FPS
+        </div>
+        <div class="playlist-icons">
+          <span class="language" style="color: blue">English</span>
+          <span class="HD">HD</span>
+          <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" alt="USA Flag" class="flag-icon" />
+        </div>
+      </div>
+    </div> -->
   </center>
+
+	<script>
+	function changeServer(serverNumber) {
+	  // accept both "1" and 1
+	  serverNumber = parseInt(serverNumber, 10);
+
+	  // find the current iframe by id
+	  const iframe = document.getElementById("player-container");
+	  // container that holds the iframe (your .iframe-wrapper)
+	  const container = document.querySelector('.iframe-wrapper') || iframe.parentElement;
+
+	  // Remove active class from all playlist items
+	  document.querySelectorAll(".playlist-item").forEach(item => item.classList.remove("active"));
+
+	  // 🧹 Remove the current iframe from the DOM
+	  if (iframe && container) {
+		container.removeChild(iframe);
+	  }
+
+	  // create a fresh iframe
+	  const newIframe = document.createElement('iframe');
+	  newIframe.id = 'player-container';
+	  newIframe.scrolling = 'no';
+	  newIframe.allowFullscreen = true;
+	  newIframe.style.width = '100%';
+	  newIframe.style.height = '100%';
+	  newIframe.frameBorder = '0';
+
+	  // set source and active class
+	  if (serverNumber === 1) {
+		newIframe.src = "https://stmify.site/player.html?id=Willow";
+		const v = document.getElementById("video1"); if (v) v.classList.add("active");
+	  } else if (serverNumber === 2) {
+		newIframe.src = "https://stmify.site/play.html?id=willowusa";
+		const v = document.getElementById("video2"); if (v) v.classList.add("active");
+	  } else {
+		// fallback
+		newIframe.src = "https://stmify.site/player.html?id=Willow";
+		const v = document.getElementById("video1"); if (v) v.classList.add("active");
+	  }
+
+	  // append the new iframe into the same container
+	  if (container) container.appendChild(newIframe);
+	}
+	</script>
 
     <h3>Disclaimer</h3>
     <ul>

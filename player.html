@@ -28,27 +28,11 @@ html, body {
   top: 0;
   left: 0;
 }
-.loading {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #000;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: Arial, sans-serif;
-  font-size: 1.2rem;
-  z-index: 1000;
-}
 </style>
 </head>
 <body>
 
 <div id="player"></div>
-<div class="loading" id="loading">Loading...</div>
 
 <script>
 // Streams JSON
@@ -113,11 +97,7 @@ if (streamInfo && streamInfo.url) {
     playerOptions.shakaConfiguration = { drm: { clearKeys: clearkeys } };
   }
 
-  const player = new Clappr.Player(playerOptions);
-
-  player.listenTo(player, Clappr.Events.PLAYER_READY, function() {
-    document.getElementById('loading').style.display = 'none';
-  });
+  new Clappr.Player(playerOptions);
 }
 </script>
 

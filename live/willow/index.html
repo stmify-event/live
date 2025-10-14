@@ -2,6 +2,8 @@
 <html lang="en">
 
 <head>
+	<link href="https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css2?family=Anek+Latin:wght@100..800&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600&amp;display=swap"
         rel="stylesheet" />
     <meta charset="UTF-8">
@@ -11,6 +13,7 @@
         style="border-radius: 5px;">
     <title>Watch Willow Live Streaming Online Free in HD | Willow Cricket on Stmify</title>
     <meta name="description" content="Watch Willow Live Cricket Streaming Online Free in HD on Stmify. Enjoy live cricket matches, tournaments, and exclusive Willow TV coverage anytime, anywhere.">
+ 
   <style>
     html,
     body {
@@ -97,7 +100,7 @@
       max-width: auto;
       height: auto;
       max-height: 35px;
-      filter: brightness(0) grayscale(1) invert(1) sepia(1) saturate(1) hue-rotate(300deg);
+      /* filter: brightness(0) grayscale(1) invert(1) sepia(1) saturate(1) hue-rotate(300deg); */
     }
 
     #container {
@@ -683,16 +686,20 @@
 </head>
 
 <body>
-    <div id="container">
-        <header>
-            <img alt="Willow Sports" id="top-image"
-                src="logo.webp" />
-        </header>
+  <div id="container">
+    <header>
+      <img alt="Willow" id="top-image" loading="eager" src="logo.webp" />
+    </header>
 
-        <center style="color: red;margin-top: 08px;font-weight: bold;padding-bottom: 10px;">
-            Please wait for 15 seconds, the video will start playing
-            automatically.
-        </center>
+    <center style="
+          color: yellowgreen;
+          margin-top: 08px;
+          font-weight: bold;
+          padding-bottom: 10px;
+        ">
+      Please wait for 30 seconds, the video will start playing automatically.
+    </center>
+
   <center>
     <!-- Player -->
 	<div class="iframe-wrapper">
@@ -725,99 +732,188 @@
           <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" alt="USA Flag" class="flag-icon" />
         </div>
       </div>
-
     </div>
   </center>
 
+	<script>
+	function changeServer(serverNumber) {
+	  // accept both "1" and 1
+	  serverNumber = parseInt(serverNumber, 10);
+
+	  // find the current iframe by id
+	  const iframe = document.getElementById("player-container");
+	  // container that holds the iframe (your .iframe-wrapper)
+	  const container = document.querySelector('.iframe-wrapper') || iframe.parentElement;
+
+	  // Remove active class from all playlist items
+	  document.querySelectorAll(".playlist-item").forEach(item => item.classList.remove("active"));
+
+	  // 🧹 Remove the current iframe from the DOM
+	  if (iframe && container) {
+		container.removeChild(iframe);
+	  }
+
+	  // create a fresh iframe
+	  const newIframe = document.createElement('iframe');
+	  newIframe.id = 'player-container';
+	  newIframe.scrolling = 'no';
+	  newIframe.allowFullscreen = true;
+	  newIframe.style.width = '100%';
+	  newIframe.style.height = '100%';
+	  newIframe.frameBorder = '0';
+
+	  // set source and active class
+	  if (serverNumber === 1) {
+		newIframe.src = "https://stmify.site/play.html?id=willowusa";
+		const v = document.getElementById("video1"); if (v) v.classList.add("active");
+	  } else if (serverNumber === 2) {
+		newIframe.src = "https://stmify.site/player.html?id=Willow";
+		const v = document.getElementById("video2"); if (v) v.classList.add("active");
+	  } else {
+		// fallback
+		newIframe.src = "https://stmify.site/play.html?id=willowusa";
+		const v = document.getElementById("video1"); if (v) v.classList.add("active");
+	  }
+
+	  // append the new iframe into the same container
+	  if (container) container.appendChild(newIframe);
+	}
+	</script>
+
+    <h3>Disclaimer</h3>
+    <ul>
+      <li>
+        Willow by Cricbuzz is dedicated to delivering high-quality cricket
+        content to its viewers.
+      </li>
+      <li>
+        All matches, highlights, and related media available on this platform
+        are sourced from authorized broadcasters and rights holders.
+      </li>
+      <li>
+        Our mission is to provide an immersive and enjoyable cricket-watching
+        experience for fans worldwide.
+      </li>
+      <li>
+        We uphold intellectual property rights and ensure that all distributed
+        content complies with broadcasting regulations and copyright laws.
+      </li>
+      <li>
+        The content on Willow by Cricbuzz is either produced in-house or
+        obtained through legitimate licensing agreements with cricket boards,
+        leagues, and official partners.
+      </li>
+    </ul>
+    <div class="watermark">
+      Created by StmifySports(SN) © <span id="year"></span>
+    </div>
+    <footer>
+      Willow by Cricbuzz © <span id="year-footer"></span> | by SN
+    </footer>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+      document.getElementById("year-footer").textContent =
+        new Date().getFullYear();
+    </script>
+  </div>
+
+  <div class="toggle-button" onclick="toggleButtons()">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1"
+      viewBox="0 0 512 512">
+      <path fill="#010101"
+        d="M459.654,233.373l-90.531,90.5c-49.969,50-131.031,50-181,0c-7.875-7.844-14.031-16.688-19.438-25.813  l42.063-42.063c2-2.016,4.469-3.172,6.828-4.531c2.906,9.938,7.984,19.344,15.797,27.156c24.953,24.969,65.563,24.938,90.5,0  l90.5-90.5c24.969-24.969,24.969-65.563,0-90.516c-24.938-24.953-65.531-24.953-90.5,0l-32.188,32.219  c-26.109-10.172-54.25-12.906-81.641-8.891l68.578-68.578c50-49.984,131.031-49.984,181.031,0  C509.623,102.342,509.623,183.389,459.654,233.373z M220.326,382.186l-32.203,32.219c-24.953,24.938-65.563,24.938-90.516,0  c-24.953-24.969-24.953-65.563,0-90.531l90.516-90.5c24.969-24.969,65.547-24.969,90.5,0c7.797,7.797,12.875,17.203,15.813,27.125  c2.375-1.375,4.813-2.5,6.813-4.5l42.063-42.047c-5.375-9.156-11.563-17.969-19.438-25.828c-49.969-49.984-131.031-49.984-181.016,0  l-90.5,90.5c-49.984,50-49.984,131.031,0,181.031c49.984,49.969,131.031,49.969,181.016,0l68.594-68.594  C274.561,395.092,246.42,392.342,220.326,382.186z" />
+    </svg>
+  </div>
+
+  <a href="https://t.me/stmify" target="_blank" class="telegram-float">
+    <div class="telegram-icon">
+      <svg viewBox="0 0 64 64">
+        <path
+          d="M56.4,8.2l-51.2,20c-1.7,0.6-1.6,3,0.1,3.5l9.7,2.9c2.1,0.6,3.8,2.2,4.4,4.3l3.8,12.1c0.5,1.6,2.5,2.1,3.7,0.9 l5.2-5.3c0.9-0.9,2.2-1,3.2-0.3l11.5,8.4c1.6,1.2,3.9,0.3,4.3-1.7l8.7-41.8C60.4,9.1,58.4,7.4,56.4,8.2z M50,17.4L29.4,35.6 c-1.1,1-1.9,2.4-2,3.9c-0.2,1.5-2.3,1.7-2.8,0.3l-0.9-3c-0.7-2.2,0.2-4.5,2.1-5.7l23.5-14.6C49.9,16.1,50.5,16.9,50,17.4z">
+        </path>
+      </svg>
+    </div>
+  </a>
+
+  <a href="https://stmify.com/" target="_blank" class="bmc-float">
+    <div class="bmc-icon">
+	<svg fill="#000000" width="35" height="50" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+	  <path d="M3.51211712,15 L8.17190229,15 C8.05949197,14.0523506 8,13.0444554 8,12 C8,10.9555446 8.05949197,9.94764942 8.17190229,9 L3.51211712,9 C3.18046266,9.93833678 3,10.9480937 3,12 C3,13.0519063 3.18046266,14.0616632 3.51211712,15 L3.51211712,15 Z M3.93551965,16 C5.12590433,18.3953444 7.35207678,20.1851177 10.0280093,20.783292 C9.24889451,19.7227751 8.65216136,18.0371362 8.31375067,16 L3.93551965,16 L3.93551965,16 Z M20.4878829,15 C20.8195373,14.0616632 21,13.0519063 21,12 C21,10.9480937 20.8195373,9.93833678 20.4878829,9 L15.8280977,9 C15.940508,9.94764942 16,10.9555446 16,12 C16,13.0444554 15.940508,14.0523506 15.8280977,15 L20.4878829,15 L20.4878829,15 Z M20.0644804,16 L15.6862493,16 C15.3478386,18.0371362 14.7511055,19.7227751 13.9719907,20.783292 C16.6479232,20.1851177 18.8740957,18.3953444 20.0644804,16 L20.0644804,16 Z M9.18440269,15 L14.8155973,15 C14.9340177,14.0623882 15,13.0528256 15,12 C15,10.9471744 14.9340177,9.93761183 14.8155973,9 L9.18440269,9 C9.06598229,9.93761183 9,10.9471744 9,12 C9,13.0528256 9.06598229,14.0623882 9.18440269,15 L9.18440269,15 Z M9.3349823,16 C9.85717082,18.9678295 10.9180729,21 12,21 C13.0819271,21 14.1428292,18.9678295 14.6650177,16 L9.3349823,16 L9.3349823,16 Z M3.93551965,8 L8.31375067,8 C8.65216136,5.96286383 9.24889451,4.27722486 10.0280093,3.21670804 C7.35207678,3.81488234 5.12590433,5.60465556 3.93551965,8 L3.93551965,8 Z M20.0644804,8 C18.8740957,5.60465556 16.6479232,3.81488234 13.9719907,3.21670804 C14.7511055,4.27722486 15.3478386,5.96286383 15.6862493,8 L20.0644804,8 L20.0644804,8 Z M9.3349823,8 L14.6650177,8 C14.1428292,5.03217048 13.0819271,3 12,3 C10.9180729,3 9.85717082,5.03217048 9.3349823,8 L9.3349823,8 Z M12,22 C6.4771525,22 2,17.5228475 2,12 C2,6.4771525 6.4771525,2 12,2 C17.5228475,2 22,6.4771525 22,12 C22,17.5228475 17.5228475,22 12,22 Z"/>
+	</svg>
+    </div>
+  </a>
+
   <script>
-    function changeServer(serverNumber) {
-      const iframe = document.getElementById("player-container");
-      const items = document.querySelectorAll(".playlist-item");
+    function toggleButtons() {
+      var toggleButton = document.querySelector(".toggle-button");
+      var telegramButton = document.querySelector(".telegram-float");
+      var bmcButton = document.querySelector(".bmc-float");
 
-      // Change active state
-      items.forEach(item => item.classList.remove("active"));
-
-      // Change iframe source
-      if (serverNumber === 1) {
-        iframe.src = "https://stmify.site/play.html?id=willowus";
-        document.getElementById("video1").classList.add("active");
-      } else if (serverNumber === 2) {
-        iframe.src = "https://stmify.site/player.html?id=Willow";
-        document.getElementById("video2").classList.add("active");
+      if (toggleButton.classList.contains("active")) {
+        telegramButton.classList.remove("show");
+        telegramButton.classList.add("hide");
+        bmcButton.classList.remove("show");
+        bmcButton.classList.add("hide");
+        toggleButton.classList.remove("active");
+        setTimeout(() => {
+          telegramButton.style.display = "none";
+          bmcButton.style.display = "none";
+        }, 500);
+      } else {
+        telegramButton.style.display = "flex";
+        bmcButton.style.display = "flex";
+        setTimeout(() => {
+          telegramButton.classList.remove("hide");
+          telegramButton.classList.add("show");
+          bmcButton.classList.remove("hide");
+          bmcButton.classList.add("show");
+          toggleButton.classList.add("active");
+        }, 10);
       }
     }
   </script>
-
-        <h3>Disclaimer</h3>
-        <ul>
-            <li>
-                The Willow channel network serves as a broadcaster and distributor
-                of sports content.
-            </li>
-            <li>
-                All streaming links provided are sourced from third-party websites
-                freely available on the internet.
-            </li>
-            <li>We simply facilitate access to these streams.</li>
-            <li>
-                We endeavor to adhere to all copyright laws and regulations, and any
-                unauthorized use, reproduction, or redistribution of our content is
-                strictly prohibited.
-            </li>
-            <li>
-                Ownership of this content belongs to Willow Channel Network or its
-                content suppliers.
-            </li>
-        </ul>
-        <div class="watermark">Created by StmifyWebs(SN) &copy; 2024</div>
-        <footer>Willow &copy; 2024 | by StmifyWebs</footer>
-    </div>
-
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity=" strict" crossorigin="anonymous"></script>
-
-
-
-    <a href="https://t.me/stmify" target="_blank" class="telegram-float">
-        <div class="telegram-icon">
-            <svg viewBox="0 0 64 64">
-                <path
-                    d="M56.4,8.2l-51.2,20c-1.7,0.6-1.6,3,0.1,3.5l9.7,2.9c2.1,0.6,3.8,2.2,4.4,4.3l3.8,12.1c0.5,1.6,2.5,2.1,3.7,0.9 l5.2-5.3c0.9-0.9,2.2-1,3.2-0.3l11.5,8.4c1.6,1.2,3.9,0.3,4.3-1.7l8.7-41.8C60.4,9.1,58.4,7.4,56.4,8.2z M50,17.4L29.4,35.6 c-1.1,1-1.9,2.4-2,3.9c-0.2,1.5-2.3,1.7-2.8,0.3l-0.9-3c-0.7-2.2,0.2-4.5,2.1-5.7l23.5-14.6C49.9,16.1,50.5,16.9,50,17.4z">
-                </path>
-            </svg>
-        </div>
-    </a>
-
 </body>
 <script>
-    // Function to prevent right-click menu
-    document.addEventListener("contextmenu", function (e) {
-        e.preventDefault();
+  // Click event listeners for playlist items
+  const playlistItems = document.querySelectorAll(".playlist-item");
+  playlistItems.forEach((item) => {
+    item.addEventListener("click", () => {
+      // Remove 'active' class from all playlist items
+      playlistItems.forEach((item) => item.classList.remove("active"));
+      // Add 'active' class to the clicked item
+      item.classList.add("active");
     });
+  });
 
-    // Function to prevent keyboard shortcuts
-    document.onkeydown = function (e) {
-        // Disable F12 key
-        if (event.keyCode == 123) {
-            return false;
-        }
-        // Disable Ctrl+Shift+I key combination
-        if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
-            return false;
-        }
-        // Disable Ctrl+Shift+J key combination
-        if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
-            return false;
-        }
-        // Disable Ctrl+Shift+U key combination
-        if (e.ctrlKey && e.shiftKey && e.keyCode == 'U'.charCodeAt(0)) {
-            return false;
-        }
-        // Disable Ctrl+C key combination
-        if (e.ctrlKey && e.keyCode == 'C'.charCodeAt(0)) {
-            return false;
-        }
-    };
+  // Function to prevent right-click menu
+  document.addEventListener("contextmenu", function (e) {
+    e.preventDefault();
+  });
+
+  // Function to prevent keyboard shortcuts
+  document.onkeydown = function (e) {
+    // Disable F12 key
+    if (event.keyCode == 123) {
+      return false;
+    }
+    // Disable Ctrl+Shift+I key combination
+    if (e.ctrlKey && e.shiftKey && e.keyCode == "I".charCodeAt(0)) {
+      return false;
+    }
+    // Disable Ctrl+Shift+J key combination
+    if (e.ctrlKey && e.shiftKey && e.keyCode == "J".charCodeAt(0)) {
+      return false;
+    }
+    // Disable Ctrl+Shift+U key combination
+    if (e.ctrlKey && e.shiftKey && e.keyCode == "U".charCodeAt(0)) {
+      return false;
+    }
+    // Disable Ctrl+C key combination
+    if (e.ctrlKey && e.keyCode == "C".charCodeAt(0)) {
+      return false;
+    }
+  };
 </script>
 
 </html>

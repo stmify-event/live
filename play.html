@@ -1,1 +1,152 @@
+<?php
+// Get ID from query string
+if (!isset($_GET['id'])) {
+    die("No ID provided.");
+}
 
+$id = $_GET['id'];
+$url = "https://xfireflix.fun/Ayna/play.php?id=" . urlencode($id);
+
+// Fetch page content using cURL
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0");
+$html = curl_exec($ch);
+curl_close($ch);
+
+// Extract streamUrl using regex
+if (preg_match('/streamUrl:\s*"([^"]+)"/', $html, $matches)) {
+    $streamUrl = $matches[1];
+} else {
+    $streamUrl = "";
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JW Player</title>
+    <meta name="referrer" content="no-referrer">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+    <!-- JW Player -->
+    <script src="//content.jwplatform.com/libraries/SAHhwvZq.js"></script>
+
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        #player {
+            position: absolute;
+            width: 100% !important;
+            height: 100% !important;
+            overflow: hidden;
+        }
+        /* Optional Unmute Button */
+        #UnMutePlayer {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .unmute-button {
+            width: 100px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            border: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .unmute-button img {
+            width: 30px;
+            height: 30px;
+            margin-bottom: 5px;
+        }
+        .unmute-button span {
+            font-size: 14px;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div id="player"></div>
+
+    <script>
+        const streamUrl = <?php echo json_encode($streamUrl); ?>;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!streamUrl) {
+                console.error('❌ No stream URL found.');
+                document.body.innerHTML = '<h3 style="color:white;text-align:center;margin-top:40vh;">Stream not available.</h3>';
+                return;
+            }
+
+            // 🔹 Initialize JW Player
+            jwplayer("player").setup({
+                file: streamUrl,
+                width: "100%",
+                height: "100%",
+                autostart: true,
+                mute: true,
+                stretching: "uniform", // contain the video fully
+                controls: true,
+                aspectratio: "16:9",
+                logo: {
+                    file: "https://yourdomain.com/logo.png", // optional
+                    position: "top-right"
+                },
+                skin: { name: "seven" },
+                playbackRateControls: true
+            });
+
+            // 🔹 Handle autoplay restrictions
+            jwplayer("player").on('playAttemptFailed', function() {
+                console.warn('Autoplay blocked. Showing unmute button.');
+                showUnmuteButton();
+            });
+
+            // 🔹 Optional error handler
+            jwplayer("player").on('error', function(e) {
+                console.error("JW Player error:", e.message);
+                document.body.innerHTML = '<h3 style="color:white;text-align:center;margin-top:40vh;">⚠️ Video playback failed.</h3>';
+            });
+
+            // 🔹 Show unmute button if needed
+            function showUnmuteButton() {
+                const btnContainer = document.createElement('div');
+                btnContainer.id = 'UnMutePlayer';
+                btnContainer.innerHTML = `
+                    <button class="unmute-button" id="unmuteBtn">
+                        <img src="https://cdn-icons-png.flaticon.com/512/727/727240.png" alt="Unmute">
+                        <span>Tap to Unmute</span>
+                    </button>
+                `;
+                document.body.appendChild(btnContainer);
+
+                document.getElementById('unmuteBtn').addEventListener('click', function() {
+                    jwplayer("player").setMute(false);
+                    jwplayer("player").play(true);
+                    btnContainer.remove();
+                });
+            }
+        });
+    </script>
+</body>
+</html>

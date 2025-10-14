@@ -127,24 +127,6 @@
             }
         }
 
-        #player-container {
-            border-radius: 05px;
-            overflow: hidden;
-            /* Center align the container */
-            margin: 0 auto;
-            /* Set initial width to 100% for mobile */
-            max-width: 100%;
-            margin-bottom: 05px;
-            margin-top: 10px;
-        }
-
-        @media only screen and (max-width: 600px) {
-            #player-container {
-                max-width: 100%;
-                /* Set initial width to 100% for mobile */
-            }
-        }
-
         #video {
             width: 100%;
             height: 0;
@@ -258,14 +240,31 @@
             width: fit-content;
             text-align: center;
         }
+      
+      	.iframe-wrapper {
+      	  position: relative;
+      	  width: 100%;
+      	  padding-top: 56.25%; /* 16:9 ratio */
+      	  border-radius: 05px;
+      	  overflow: hidden;
+          margin: 08px 0 05px 0;
+      	}
+      
+      	.iframe-wrapper iframe {
+      	  position: absolute;
+      	  top: 0;
+      	  left: 0;
+      	  width: 100%;
+      	  height: 100%;
+      	  border: none;
+      	}
     </style>
-    <script src="https://ssl.p.jwpcdn.com/player/v/8.32.1/jwplayer.js" type="text/javascript"></script>
 </head>
 
 <body>
     <div id="container">
         <header>
-            <img alt="Willow" id="top-image"
+            <img alt="Willow Sports" id="top-image"
                 src="logo.webp" />
         </header>
 
@@ -273,28 +272,11 @@
             Please wait for 15 seconds, the video will start playing
             automatically.
         </center>
-
-        <div id="player-container">
-            <script type="text/javascript">
-                jwplayer.key = 'XSuP4qMl+9tK17QNb+4+th2Pm9AWgMO/cYH8CI0HGGr7bdjo';
-                var playerInstance = jwplayer("player-container").setup({
-                    file: "https://fl7.moveonjoy.com/WILLOW_CRICKET/manifest.mpd",
-                    aspectratio: '16:9',
-                    width: '100%',
-                    image: 'https://mma.prnewswire.com/media/1919551/WillowTV_Logo.jpg?p=facebook',
-                    autostart: true, // Disable autostart initially
-                    captions: { color: 'white', fontSize: '25%', backgroundOpacity: 0 },
-                    abouttext: 'Ultrawebs(HM)',
-                    aboutlink: 'https://linktr.ee/ultrawebs',
-                    sharing: {
-                        sites: ['facebook', 'twitter', 'tumblr', 'googleplus']
-                    },
-                    "Volume": "50",
-                    "mute": true,
-                    type: "dash"
-                });
-            </script>
-        </div>
+      	<div class="iframe-wrapper">
+          <iframe id="player-container"
+            src="https://stmify.site/player.html?id=Willow" scrolling="no"
+            allowfullscreen></iframe>
+      	</div>
 
         <h3>Disclaimer</h3>
         <ul>

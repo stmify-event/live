@@ -1,25 +1,79 @@
 [
   {
+    "name": "Sky Sports Action",
+    "country": "Sky Sports",
+    "url": "https://stmify.site/live/sky-sports-action/",
+    "poster": "assets/img/webp/sky-sports-action-uk.webp"
+  },
+  {
+    "name": "Sky Sports Cricket",
+    "country": "Sky Sports",
+    "url": "https://stmify.site/live/sky-sports-cricket/",
+    "poster": "assets/img/webp/sky-sports-cricket-uk.webp"
+  },
+  {
+    "name": "Sky Sports F1",
+    "country": "Sky Sports",
+    "url": "https://stmify.site/live/sky-sports-f1/",
+    "poster": "assets/img/webp/sky-sports-f1-uk.webp"
+  },
+  {
+    "name": "Sky Sports Football",
+    "country": "Sky Sports",
+    "url": "https://stmify.site/live/sky-sports-football/",
+    "poster": "assets/img/webp/sky-sports-football-uk.webp"
+  },
+  {
+    "name": "Sky Sports Golf",
+    "country": "Sky Sports",
+    "url": "https://stmify.site/live/sky-sports-golf/",
+    "poster": "assets/img/webp/sky-sports-golf-uk.webp"
+  },
+  {
+    "name": "Sky Sports Main Event",
+    "country": "Sky Sports",
+    "url": "https://stmify.site/live/sky-sports-main-event/",
+    "poster": "assets/img/webp/sky-sports-main-event-uk.webp"
+  },
+  {
+    "name": "Sky Sports Mix",
+    "country": "Sky Sports",
+    "url": "https://stmify.site/live/sky-sports-mix/",
+    "poster": "assets/img/webp/sky-sports-mix-uk.webp"
+  },
+  {
+    "name": "Sky Sports Premier League",
+    "country": "Sky Sports",
+    "url": "https://stmify.site/live/sky-sports-premier-league/",
+    "poster": "assets/img/webp/sky-sports-premier-league-uk.webp"
+  },
+  {
+    "name": "Sky Sports Tennis",
+    "country": "Sky Sports",
+    "url": "https://stmify.site/live/sky-sports-tennis/",
+    "poster": "assets/img/webp/sky-sports-tennis-uk.webp"
+  },
+  {
     "name": "TNT Sports 1",
-    "country": "Global",
+    "country": "TNT Network",
     "url": "https://stmify.site/live/tnt-sports-1/",
     "poster": "assets/img/webp/tnt-sports-1.webp"
   },
   {
     "name": "TNT Sports 2",
-    "country": "Global",
+    "country": "TNT Network",
     "url": "https://stmify.site/live/tnt-sports-2/",
     "poster": "assets/img/webp/tnt-sports-2.webp"
   },
   {
     "name": "TNT Sports 3",
-    "country": "Global",
+    "country": "TNT Network",
     "url": "https://stmify.site/live/tnt-sports-3/",
     "poster": "assets/img/webp/tnt-sports-3.webp"
   },
   {
     "name": "TNT Sports 4",
-    "country": "Global",
+    "country": "TNT Network",
     "url": "https://stmify.site/live/tnt-sports-4/",
     "poster": "assets/img/webp/tnt-sports-4.webp"
   },

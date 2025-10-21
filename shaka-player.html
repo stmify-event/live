@@ -1,137 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stmify Player</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.8.3/shaka-player.ui.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.8.3/controls.min.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Stmify Player (fixed)</title>
+
+  <!-- Shaka Player + UI -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.8.3/shaka-player.compiled.debug.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.8.3/controls.css" />
   <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      background: black;
-      height: 100%;
-      width: 100%;
-      overflow: hidden;
-    }
-    #video {
-      width: 100%;
-      height: 100%;
-      background: black;
-    }
-    .shaka-controls-container {
-      font-size: 14px;
-    }
+    html,body { height:100%; margin:0; background:#000; }
+    #video-container { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; }
+    video { width:100%; height:100%; background:#000; }
   </style>
 </head>
 <body>
-
-  <video id="video" autoplay controls></video>
+  <div id="video-container">
+    <video id="video" autoplay playsinline></video>
+  </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', async () => {
+    // --- Helpers ---
+    // Convert hex string (like "aabbcc...") to base64url (no padding, +/= -> -_)
+    function hexToBase64Url(hex) {
+      if (!hex) return null;
+      // ensure even length
+      if (hex.length % 2 !== 0) hex = '0' + hex;
+      const bytes = new Uint8Array(hex.length / 2);
+      for (let i = 0; i < bytes.length; i++) {
+        bytes[i] = parseInt(hex.substr(i * 2, 2), 16);
+      }
+      // convert bytes -> base64
+      let binary = '';
+      for (let i = 0; i < bytes.byteLength; i++) binary += String.fromCharCode(bytes[i]);
+      let b64 = btoa(binary);
+      // make URL-safe and remove padding
+      return b64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    }
 
-      // ✅ Streams JSON List
-      const streams = {
-        "TNT_Sports_1": {
-          "url": "https://ottb.live.cf.ww.aiv-cdn.net/lhr-nitro/live/dash/enc/wf8usag51e/out/v1/bd3b0c314fff4bb1ab4693358f3cd2d3/cenc.mpd",
-          "k1": "d0f2e5c39e70c18f29bf77768a1ad89a",
-          "k2": "d6853c51fcf37a18905f0609972395d7"
-        },
-        "TNT_Sports_2": {
-          "url": "https://ottb.live.cf.ww.aiv-cdn.net/lhr-nitro/live/dash/enc/bsaaetko8v/out/v1/f8fa17f087564f51aa4d5c700be43ec4/cenc.mpd",
-          "k1": "9f51f3dc6313ac8bc668e2d9d1c04dfa",
-          "k2": "74bc63e5a193454a91ca494975db33f9"
-        },
-        "TNT_Sports_3": {
-          "url": "https://ottb.live.cf.ww.aiv-cdn.net/lhr-nitro/live/dash/enc/lsdasbvglv/out/v1/bb548a3626cd4708afbb94a58d71dce9/cenc.mpd",
-          "k1": "a93c1cbfdccd23233bac13540c693e7f",
-          "k2": "2f6ab2e6693eb847eff3c9da8f9d01fc"
-        },
-        "TNT_Sports_4": {
-          "url": "https://ottb.live.cf.ww.aiv-cdn.net/lhr-nitro/live/dash/enc/i2pcjr4pe5/out/v1/912e9db56d75403b8a9ac0a719110f36/cenc.mpd",
-          "k1": "192b1115da041585c77200128549efa1",
-          "k2": "634e10efe4abbb14be400a3ccbac0258"
-        },
-        "Willow_Sports": {
-          "url": "https://otte.live.cf.ww.aiv-cdn.net/iad-nitro/live/clients/dash/enc/f60kqesunw/out/v1/a435ed7a00f947deb4369b46d8f2fb70/cenc.mpd",
-          "k1": "1779c27b9d077a3ba0c9cc1bb9a94b9f",
-          "k2": "cc5cf3b7928fb9e0a1ee6a8b566f0a8e"
-        },
-        "Willow": {
-          "url": "https://fl25.moveonjoy.com/WILLOW_CRICKET/index.m3u8"
-        },
-        "TNT_Sports_PT_BR": {
-          "url": "https://bra.06134346.xyz/proxy?url=https://0012-aws.vrioott.com/v1/78b66fd5e8204e048e31ad1c6eebbb8e/manifest.mpd?hdnts=exp%3D1751293344%7Eacl%3D%2F*%7Eid%3D996e0602-0475-53fa-b17a-bd3adaab1ce5%7Ehmac%3D08da58cba4e3a240d219b6c37db49fdfd51a183f5f583fb4f935e4713a626edd",
-          "clearkeys": {
-            "7c725bec30ce42b68cf6919403ba2376": "ce5ad511ef4efeacf533fbac6815dbe7",
-            "4d2f65c1e6573da2991edb00f427c2e0": "a8ab35b34424226759b2f697ee4e13a0"
-          }
+    // Convert an object of hex->hex to ClearKey mapping required by Shaka (base64url->base64url)
+    function convertClearKeysHexMap(hexMap) {
+      const out = {};
+      for (const hexKid in hexMap) {
+        if (!Object.prototype.hasOwnProperty.call(hexMap, hexKid)) continue;
+        const hexKey = hexMap[hexKid];
+        const kidB64 = hexToBase64Url(hexKid);
+        const keyB64 = hexToBase64Url(hexKey);
+        out[kidB64] = keyB64;
+      }
+      return out;
+    }
+
+    // --- Streams list (same as your JSON) ---
+    const streams = {
+      "TNT_Sports_1": {
+        "url": "https://ottb.live.cf.ww.aiv-cdn.net/lhr-nitro/live/dash/enc/wf8usag51e/out/v1/bd3b0c314fff4bb1ab4693358f3cd2d3/cenc.mpd",
+        "k1": "d0f2e5c39e70c18f29bf77768a1ad89a",
+        "k2": "d6853c51fcf37a18905f0609972395d7"
+      },
+      "TNT_Sports_2": {
+        "url": "https://ottb.live.cf.ww.aiv-cdn.net/lhr-nitro/live/dash/enc/bsaaetko8v/out/v1/f8fa17f087564f51aa4d5c700be43ec4/cenc.mpd",
+        "k1": "9f51f3dc6313ac8bc668e2d9d1c04dfa",
+        "k2": "74bc63e5a193454a91ca494975db33f9"
+      },
+      "Willow": {
+        "url": "https://fl25.moveonjoy.com/WILLOW_CRICKET/index.m3u8"
+      },
+      "TNT_Sports_PT_BR": {
+        "url": "https://bra.06134346.xyz/proxy?url=https://0012-aws.vrioott.com/v1/78b66fd5e8204e048e31ad1c6eebbb8e/manifest.mpd?hdnts=exp%3D1751293344%7Eacl%3D%2F*%7Eid%3D996e0602-0475-53fa-b17a-bd3adaab1ce5%7Ehmac%3D08da58cba4e3a240d219b6c37db49fdfd51a183f5f583fb4f935e4713a626edd",
+        "clearkeys": {
+          "7c725bec30ce42b68cf6919403ba2376":"ce5ad511ef4efeacf533fbac6815dbe7",
+          "4d2f65c1e6573da2991edb00f427c2e0":"a8ab35b34424226759b2f697ee4e13a0"
         }
-      };
-
-      // ✅ Get ID from URL
-      const urlParams = new URLSearchParams(window.location.search);
-      const id = urlParams.get('id');
-      const selectedStream = streams[id];
-
-      if (!selectedStream) {
-        alert('⚠️ Invalid or missing stream ID.');
-        return;
       }
+    };
 
-      // ✅ Initialize Shaka Player
-      const video = document.getElementById('video');
-      const ui = video['ui'];
-      ui.configure({
-        seekBarColors: {
-          base: 'rgba(255,255,255,.2)',
-          buffered: 'rgba(255,255,255,.4)',
-          played: 'rgb(255,0,0)'
-        },
-        controlPanelElements: [
-          'play_pause',
-          'time_and_duration',
-          'mute',
-          'volume',
-          'spacer',
-          'captions',
-          'quality',
-          'language',
-          'picture_in_picture',
-          'fullscreen',
-          'overflow_menu'
-        ]
-      });
+    // --- Get id from URL ---
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id') || 'TNT_Sports_2';
+    const data = streams[id];
 
-      const player = new shaka.Player(video);
+    if (!data) {
+      alert('Invalid stream id: ' + id);
+      throw new Error('Invalid stream id: ' + id);
+    }
 
-      // ✅ Configure DRM if present
-      if (selectedStream.k1 && selectedStream.k2) {
-        player.configure({
-          drm: {
-            clearKeys: {
-              [selectedStream.k1]: selectedStream.k2
-            }
-          }
-        });
-      } else if (selectedStream.clearkeys) {
-        player.configure({
-          drm: {
-            clearKeys: selectedStream.clearkeys
-          }
-        });
-      }
+    // --- Initialize Shaka and UI overlay ---
+    shaka.polyfill.installAll();
+    if (!shaka.Player.isBrowserSupported()) {
+      alert('Shaka Player not supported in this browser.');
+      throw new Error('Shaka Player not supported');
+    }
 
-      try {
-        await player.load(selectedStream.url);
-        console.log('✅ Stream loaded successfully:', id);
-      } catch (err) {
-        console.error('❌ Load failed:', err);
-        alert('Stream failed to load.');
-      }
+    const video = document.getElementById('video');
 
+    // Create player and overlay (UI)
+    const player = new shaka.Player(video);
+    window.player = player; // expose for debugging
+
+    // Create UI overlay; parent element must contain the video
+    const container = document.getElementById('video-container');
+    const overlay = new shaka.ui.Overlay(player, container, video);
+    const ui = overlay.getControls();
+
+    // UI config (seek bar colors + controls)
+    ui.getControls().getSettings(); // ensure loaded (harmless)
+    overlay.configure({
+      seekBarColors: {
+        base: 'rgba(255,255,255,.2)',
+        buffered: 'rgba(255,255,255,.4)',
+        played: 'rgb(255,0,0)'
+      },
+      controlPanelElements: [
+        'play_pause',
+        'time_and_duration',
+        'mute',
+        'volume',
+        'spacer',
+        'captions',
+        'quality',
+        'language',
+        'picture_in_picture',
+        'fullscreen',
+        'overflow_menu'
+      ]
+    });
+
+    // --- DRM / clearkeys handling ---
+    let drmConfig = {};
+    if (data.clearkeys) {
+      // convert map from hex->hex into base64url->base64url
+      drmConfig = { clearKeys: convertClearKeysHexMap(data.clearkeys) };
+      console.log('Using clearkeys (converted):', drmConfig);
+    } else if (data.k1 && data.k2) {
+      // single pair (k1 as kid, k2 as key)
+      const converted = {};
+      converted[hexToBase64Url(data.k1)] = hexToBase64Url(data.k2);
+      drmConfig = { clearKeys: converted };
+      console.log('Using single clearKey (converted):', drmConfig);
+    } else {
+      drmConfig = {}; // no DRM keys
+      console.log('No DRM keys provided for this stream.');
+    }
+
+    // apply DRM config (if any)
+    if (Object.keys(drmConfig).length) {
+      player.configure({ drm: drmConfig });
+    }
+
+    // optional: allow HLS via browser if HLS manifest; Shaka can handle HLS too (if build includes hls)
+    const manifestUri = data.url;
+
+    // Attempt to load
+    player.load(manifestUri).then(() => {
+      console.log('Playback started for', id, manifestUri);
+    }).catch(err => {
+      console.error('Load error', err);
+      alert('Failed to load stream. See console for details.');
+    });
+
+    // Basic error handling - log Shaka errors
+    player.addEventListener('error', (evt) => {
+      console.error('Shaka error', evt.detail);
     });
   </script>
 </body>

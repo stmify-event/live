@@ -6,6 +6,12 @@
     "poster": "assets/img/webp/sky-sports-action-uk.webp"
   },
   {
+    "name": "Sky Sports Arena",
+    "country": "Sky Sports",
+    "url": "https://stmify.site/live/sky-sports-arena/",
+    "poster": "assets/img/webp/sky-sports-arena-uk.webp"
+  },
+  {
     "name": "Sky Sports Cricket",
     "country": "Sky Sports",
     "url": "https://stmify.site/live/sky-sports-cricket/",
@@ -46,6 +52,12 @@
     "country": "Sky Sports",
     "url": "https://stmify.site/live/sky-sports-premier-league/",
     "poster": "assets/img/webp/sky-sports-premier-league-uk.webp"
+  },
+  {
+    "name": "Sky Sports Racing",
+    "country": "Sky Sports",
+    "url": "https://stmify.site/live/sky-sports-racing/",
+    "poster": "assets/img/webp/sky-sports-racing-uk.webp"
   },
   {
     "name": "Sky Sports Tennis",

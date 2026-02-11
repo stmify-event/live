@@ -751,6 +751,18 @@
           <img src="https://upload.wikimedia.org/wikipedia/commons/c/cd/Flag_of_Afghanistan_%282013%E2%80%932021%29.svg" alt="Afghanistan Flag" class="flag-icon" />
         </div>
       </div>
+
+      <div class="playlist-item" id="video4" onclick="changeServer(4)">
+        <div class="playlist-info">
+          <i class="fa fa-play-circle" style="color: yellowgreen; font-size: 22px; margin-right: 10px"></i>
+          JioHotstar - 50 FPS
+        </div>
+        <div class="playlist-icons">
+          <span class="language" style="color: blue">English</span>
+          <span class="HD">HD</span>
+          <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" alt="Afghanistan Flag" class="flag-icon" />
+        </div>
+      </div>
     </div>
   </center>
 
@@ -791,6 +803,9 @@
 	  } else if (serverNumber === 3) {
 		newIframe.src = "https://stmify.site/player.html?id=AF_SPORES";
 		const v = document.getElementById("video3"); if (v) v.classList.add("active");
+	  }  else if (serverNumber === 4) {
+		newIframe.src = "https://stmify.site/player.html?id=JIO_HOTSTAR";
+		const v = document.getElementById("video4"); if (v) v.classList.add("active");
 	  } else {
 		// fallback
 		newIframe.src = "https://stmify.site/shaka-player.html?mpd=https://a201aivottlinear-a.akamaihd.net/OTTB/lhr-nitro/clients/dash/enc/f60kqesunw/out/v1/a435ed7a00f947deb4369b46d8f2fb70/cenc.mpd&keyId=1779c27b9d077a3ba0c9cc1bb9a94b9f&key=cc5cf3b7928fb9e0a1ee6a8b566f0a8e";

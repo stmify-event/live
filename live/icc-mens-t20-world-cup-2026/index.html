@@ -711,7 +711,7 @@
     <!-- Player -->
 	<div class="iframe-wrapper">
     <iframe id="player-container"
-      src="https://stmify.site/shaka-player.html?mpd=https://a201aivottlinear-a.akamaihd.net/OTTB/lhr-nitro/clients/dash/enc/f60kqesunw/out/v1/a435ed7a00f947deb4369b46d8f2fb70/cenc.mpd&keyId=1779c27b9d077a3ba0c9cc1bb9a94b9f&key=cc5cf3b7928fb9e0a1ee6a8b566f0a8e" scrolling="no"
+      src="https://stmify.site/player.html?id=Willow_Sports" scrolling="no"
       allowfullscreen></iframe>
 	</div>
     <!-- Playlist -->
@@ -795,10 +795,10 @@
 
 	  // set source and active class
 	  if (serverNumber === 1) {
-		newIframe.src = "https://stmify.site/shaka-player.html?mpd=https://a201aivottlinear-a.akamaihd.net/OTTB/lhr-nitro/clients/dash/enc/f60kqesunw/out/v1/a435ed7a00f947deb4369b46d8f2fb70/cenc.mpd&keyId=1779c27b9d077a3ba0c9cc1bb9a94b9f&key=cc5cf3b7928fb9e0a1ee6a8b566f0a8e";
+		newIframe.src = "https://stmify.site/player.html?id=Willow_Sports";
 		const v = document.getElementById("video1"); if (v) v.classList.add("active");
 	  } else if (serverNumber === 2) {
-		newIframe.src = "https://stmify.site/shaka-player.html?mpd=https://a120live-pv-ta-amazon.akamaized.net/sin-nitro/live/clients/dash/enc/cjfgjgm8nr/out/v1/4b134e64cd5e4be38f9d00bb96fc4a0a/cenc.mpd&keyId=e2135bf415cfea9ea3e6b26a6fce8fc3&key=2671da359a0a860668baca2e34f243f6";
+		newIframe.src = "https://stmify.site/shaka-player.html?mpd=https://a201aivottlinear-a.akamaihd.net/OTTB/lhr-nitro/clients/dash/enc/f60kqesunw/out/v1/a435ed7a00f947deb4369b46d8f2fb70/cenc.mpd&keyId=1779c27b9d077a3ba0c9cc1bb9a94b9f&key=cc5cf3b7928fb9e0a1ee6a8b566f0a8e";
 		const v = document.getElementById("video2"); if (v) v.classList.add("active");
 	  } else if (serverNumber === 3) {
 		newIframe.src = "https://stmify.site/player.html?id=AF_SPORES";
@@ -808,7 +808,7 @@
 		const v = document.getElementById("video4"); if (v) v.classList.add("active");
 	  } else {
 		// fallback
-		newIframe.src = "https://stmify.site/shaka-player.html?mpd=https://a201aivottlinear-a.akamaihd.net/OTTB/lhr-nitro/clients/dash/enc/f60kqesunw/out/v1/a435ed7a00f947deb4369b46d8f2fb70/cenc.mpd&keyId=1779c27b9d077a3ba0c9cc1bb9a94b9f&key=cc5cf3b7928fb9e0a1ee6a8b566f0a8e";
+		newIframe.src = "https://stmify.site/player.html?id=Willow_Sports";
         const v = document.getElementById("video1"); if (v) v.classList.add("active");
 	  }
 

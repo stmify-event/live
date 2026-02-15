@@ -763,6 +763,30 @@
           <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" alt="Afghanistan Flag" class="flag-icon" />
         </div>
       </div>
+
+      <div class="playlist-item" id="video5" onclick="changeServer(5)">
+        <div class="playlist-info">
+          <i class="fa fa-play-circle" style="color: yellowgreen; font-size: 22px; margin-right: 10px"></i>
+          Geo Super - 50 FPS
+        </div>
+        <div class="playlist-icons">
+          <span class="language" style="color: blue">English</span>
+          <span class="HD">HD</span>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg" alt="Pakistan Flag" class="flag-icon" />
+        </div>
+      </div>
+
+      <div class="playlist-item" id="video6" onclick="changeServer(6)">
+        <div class="playlist-info">
+          <i class="fa fa-play-circle" style="color: yellowgreen; font-size: 22px; margin-right: 10px"></i>
+          T Sports - 50 FPS
+        </div>
+        <div class="playlist-icons">
+          <span class="language" style="color: blue">English</span>
+          <span class="HD">HD</span>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Flag_of_Bangladesh.svg" alt="Bangladesh Flag" class="flag-icon" />
+        </div>
+      </div>
     </div>
   </center>
 
@@ -806,6 +830,12 @@
 	  }  else if (serverNumber === 4) {
 		newIframe.src = "https://stmify.site/player.html?id=STAR_SPORTS_1_HD";
 		const v = document.getElementById("video4"); if (v) v.classList.add("active");
+	  }  else if (serverNumber === 5) {
+		newIframe.src = "https://stmify.site/player.html?id=GEO_SUPER";
+		const v = document.getElementById("video5"); if (v) v.classList.add("active");
+	  }  else if (serverNumber === 6) {
+		newIframe.src = "https://stmify.site/player.html?id=T_SPORES_HD";
+		const v = document.getElementById("video6"); if (v) v.classList.add("active");
 	  } else {
 		// fallback
 		newIframe.src = "https://stmify.site/player.html?id=Willow_Sports";
